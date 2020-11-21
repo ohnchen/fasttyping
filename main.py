@@ -17,9 +17,15 @@ def wiki():
     return sentences 
 
 def random_sentence():
-    sentences = wiki()
-    sentence = random.choice(sentences)
-    return sentence
+    print("[LOADING]...")
+    try:
+        sentences = wiki()
+        sentence = random.choice(sentences)
+        return sentence
+    except:
+        print("[ERROR] Something went wrong. Lets try again")
+        time.sleep(2)
+        program()
 
 def touchtyper(sentence_to_type):
     global page
@@ -28,17 +34,37 @@ def touchtyper(sentence_to_type):
     print("[EXIT] You want to exit? Type: exit" )
     print("[SENTENCE] ", sentence_to_type)
 
-    solution = input("Type here:  ") 
+    start = time.time() 
+    solution = input("\nType here:  ") 
     stop = time.time()
     timeelapsed = stop - start
        
+    wordlist = sentence_to_type.split()
+    characters = 0
+
+    string = "".join(wordlist)
+    typed_string = "".join(solution.split())
+
+    chars = len(string)
+    for index, char in enumerate(string):
+        for ind, ch in enumerate(typed_string):
+            if ind == index and ch == char:
+                characters += 1
     if solution == sentence_to_type:
-        print(f"Well done. No mistakes and you finished in \033[1m{round(timeelapsed, 3)}\033[0m seconds.")
+        print(f"Accuracy: \033[1m{round((characters/chars)*100)}%\033[0m", end=" ")
+        print(f"Time: \033[1m{round(timeelapsed, 3)}s\033[0m", end=" ")
+        print(f"Speed: \033[1m{len(solution.split())/(int(timeelapsed)/60)} WPM\033[0m.")
+        print(f"Well done. No mistakes.")
+        input("")
     elif solution == "exit":
         return
     else:
+        print(f"Accuracy: \033[1m{round((characters/chars)*100)}%\033[0m", end=" ")
+        print(f"Time: \033[1m{round(timeelapsed, 3)}s\033[0m", end=" ")
+        print(f"Speed: \033[1m{len(solution.split())/(int(timeelapsed)/60)} WPM\033[0m.")
         print(f"You made a few mistakes. Try again!")
-    
+        input("")
+
     time.sleep(5)
     program()
     
@@ -46,7 +72,6 @@ def program():
     global start
     os.system("clear")
     sentence = random_sentence()
-    start = time.time()
     touchtyper(sentence)
 
 if __name__ == "__main__":
