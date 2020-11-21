@@ -1,17 +1,23 @@
 #!/usr/bin/env python 
 
 import time
-import os 
+import os, sys 
 import random
 import wikipedia
 
-random_article = wikipedia.random()
-page = wikipedia.page(random_article)
+def wiki():
+    global page
+    
+    random_article = wikipedia.random()
+    page = wikipedia.page(random_article)
 
-contents = page.content
-sentences = contents.split(". ")
+    contents = page.summary
+    sentences = contents.split(". ")
+    os.system("clear")
+    return sentences 
 
 def random_sentence():
+    sentences = wiki()
     sentence = random.choice(sentences)
     return sentence
 
@@ -19,7 +25,7 @@ def touchtyper(sentence_to_type):
     global page
     print(f"[WIKI] {page.title}")
     print("[INPUT] Type the following sentence and confirm by pressing enter!")
-    print("[EXIT] You want to exit? Type: exit")
+    print("[EXIT] You want to exit? Type: exit" )
     print("[SENTENCE] ", sentence_to_type)
 
     solution = input("Type here:  ") 
