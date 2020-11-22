@@ -50,22 +50,30 @@ def touchtyper(sentence_to_type):
         for ind, ch in enumerate(typed_string):
             if ind == index and ch == char:
                 characters += 1
+    try: 
+        speed = round(len(solution.split())/(int(timeelapsed)/60))
+        _time = round(timeelapsed, 3)    
+        accuracy = round((characters/chars)*100)
+    except:
+        print("You have to type something. duh..")
+        time.sleep(2)
+        program()
+ 
     if solution == sentence_to_type:
-        print(f"Accuracy: \033[1m{round((characters/chars)*100)}%\033[0m", end=" ")
-        print(f"Time: \033[1m{round(timeelapsed, 3)}s\033[0m", end=" ")
-        print(f"Speed: \033[1m{len(solution.split())/(int(timeelapsed)/60)} WPM\033[0m.")
+        print(f"Accuracy: \033[96m\033[1m{accuracy}%\033[0m", end=" ")
+        print(f"Time: \033[1m\033[96m{_time}s\033[0m", end=" ")
+        print(f"Speed: \033[96m\033[1m{speed} WPM\033[0m.")
         print(f"Well done. No mistakes.")
         input("")
     elif solution == "exit":
         return
     else:
-        print(f"Accuracy: \033[1m{round((characters/chars)*100)}%\033[0m", end=" ")
-        print(f"Time: \033[1m{round(timeelapsed, 3)}s\033[0m", end=" ")
-        print(f"Speed: \033[1m{len(solution.split())/(int(timeelapsed)/60)} WPM\033[0m.")
+        print(f"Accuracy: \033[96m\033[1m{accuracy}%\033[0m", end=" ")
+        print(f"Time: \033[96m\033[1m{_time}s\033[0m", end=" ")
+        print(f"Speed: \033[96m\033[1m{speed} WPM\033[0m.")
         print(f"You made a few mistakes. Try again!")
         input("")
 
-    time.sleep(5)
     program()
     
 def program(): 
